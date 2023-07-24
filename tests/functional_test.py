@@ -11,7 +11,7 @@ def browser(request):
     _browser.quit()
 
 
-def test_main_page_loads(browser):
+def test_main_page_loads_and_shows_untitled(browser):
     browser.get("http://localhost:5000")
 
     # User goes to the homepage of the website
