@@ -8,24 +8,30 @@ browser = webdriver.Firefox(options=options)
 
 browser.get("http://localhost:5000")
 
-# Edith has heard about a cool new online to-do app. She goes
-# to check out its homepage
-browser.get("http://localhost:8000")
+# User goes to the homepage of the website
+#
+# browser.get("http://localhost:8000")
 
-# She notices the page title and header mention to-do lists
-assert "To-Do" in browser.title
+# She notices the page title
+assert "Notes" in browser.title
+# there is a new document with the title "Untitled"
+assert "Untitled" in browser.page_source
+# the document has optional title
+# the document has either "root" as a parent or valid document id as a parent
+# the document has a unique id
+# the document can have children
 
-# She is invited to enter a to-do item straight away
 
-# She types "Buy peacock feathers" into a text box (Edith's hobby
-# is tying fly-fishing lures)
+# The cursor is blinking on the title "Untitled"
 
-# When she hits enter, the page updates, and now the page lists
-# "1: Buy peacock feathers" as an item in a to-do list
+# She types "Buy peacock feathers" as a title
 
+# When she hits enter, the page updates, and now the page is redirected to
+# http://localhost:8000/document/1
+# and the title is "Buy peacock feathers"
+#
 # There is still a text box inviting her to add another item. She
-# enters "Use peacock feathers to make a fly" (Edith is very methodical)
-
+# enters "Use peacock feathers to make a fly"
 # The page updates again, and now shows both items on her list
 
 # Edith wonders whether the site will remember her list. Then she sees
@@ -37,6 +43,3 @@ assert "To-Do" in browser.title
 # Satisfied, she goes back to sleep
 
 browser.quit()
-
-
-assert "localhost" in browser.current_url
