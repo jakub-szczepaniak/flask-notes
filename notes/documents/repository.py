@@ -1,0 +1,2 @@
+class InMemoryDocumentRepository:
+    pass
