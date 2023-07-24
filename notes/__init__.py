@@ -4,8 +4,8 @@ from flask import Flask
 def create_app():
     app = Flask(__name__)
 
-    @app.route("/")
-    def hello():
-        return "<title>Notes</title>Untitled"
+    from . import documents
+
+    app.register_blueprint(documents.bp)
 
     return app
