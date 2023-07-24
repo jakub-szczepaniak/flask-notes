@@ -1,21 +1,26 @@
-import time
-
+import pytest
 from selenium import webdriver
 
-options = webdriver.FirefoxOptions()
-options.add_argument("-headless")
-browser = webdriver.Firefox(options=options)
 
-browser.get("http://localhost:5000")
+@pytest.fixture(scope="module")
+def browser(request):
+    options = webdriver.FirefoxOptions()
+    options.add_argument("-headless")
+    _browser = webdriver.Firefox(options=options)
+    yield _browser
+    _browser.quit()
 
-# User goes to the homepage of the website
-#
-# browser.get("http://localhost:8000")
 
-# She notices the page title
-assert "Notes" in browser.title
-# there is a new document with the title "Untitled"
-assert "Untitled" in browser.page_source
+def test_main_page_loads(browser):
+    browser.get("http://localhost:5000")
+
+    # User goes to the homepage of the website
+    # She notices the page title
+    assert "Notes" in browser.title
+    # there is a new document with the title "Untitled"
+    assert "Untitled" in browser.page_source
+
+
 # the document has optional title
 # the document has either "root" as a parent or valid document id as a parent
 # the document has a unique id
@@ -41,5 +46,3 @@ assert "Untitled" in browser.page_source
 # She visits that URL - her to-do list is still there.
 
 # Satisfied, she goes back to sleep
-
-browser.quit()
