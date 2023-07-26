@@ -1,5 +1,7 @@
 import pytest
 from selenium import webdriver
+from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.common.by import By
 
 
 @pytest.fixture(scope="module")
@@ -18,23 +20,17 @@ def test_main_page_loads_and_shows_untitled(browser):
     # She notices the page title
     assert "Notes" in browser.title
     # there is a new document with the title "Untitled"
-    assert "Untitled" in browser.page_source
+    inputbox = browser.find_element(By.NAME, "title")
+    assert inputbox.get_attribute("placeholder") == "Untitled"
+
+    # The cursor is blinking on the title "Untitled"
+    # She types "Buy peacock feathers" as a title
+    inputbox.send_keys("Buy peacock feathers")
+    # When she hits enter, the page updates, and now the page is redirected to
+    # http://localhost:5000/document/1
+    # and the title is "Buy peacock feathers"
 
 
-# the document has optional title
-# the document has either "root" as a parent or valid document id as a parent
-# the document has a unique id
-# the document can have children
-
-
-# The cursor is blinking on the title "Untitled"
-
-# She types "Buy peacock feathers" as a title
-
-# When she hits enter, the page updates, and now the page is redirected to
-# http://localhost:5000/document/1
-# and the title is "Buy peacock feathers"
-#
 # There is still a text box inviting her to add another item. She
 # enters "Use peacock feathers to make a fly"
 # The page updates again, and now shows both items on her list

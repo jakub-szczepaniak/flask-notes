@@ -7,5 +7,8 @@ def create_app():
     from . import documents
 
     app.register_blueprint(documents.bp)
+    from . import db
+
+    db.init_app(app)
 
     return app
