@@ -4,11 +4,13 @@ bp = Blueprint("documents", __name__)
 
 from . import service
 from . import repository
+from notes.db import get_db
 
 
 @bp.route("/")
 def index():
-    store = repository.InMemoryDocumentRepository()
+    db = get_db()
+    store = repository.DocumentRepository(db)
     create_document = service.CreateDocument(store)
     document = create_document.execute(title="Untitled")
 

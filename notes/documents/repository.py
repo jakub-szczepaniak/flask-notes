@@ -1,10 +1,15 @@
-class InMemoryDocumentRepository:
-    def __init__(self):
-        self.documents = {}
+from notes.documents.service import Document
+
+
+class DocumentRepository:
+    def __init__(self, db=None):
+        self.db = db
 
     def save(self, document):
-        self.documents[document.id] = document
+        self.db.execute("INSERT INTO documents (title) VALUES (?)", (document.title,))
+        document.id = 1
         return document
 
-    def get(self, id):
-        return self.documents[id]
+    def get_by(self, id):
+        row = self.db.execute("SELECT * FROM documents WHERE id = ?", (id,)).fetchone()
+        return Document(title=row["title"], id=row["id"])

@@ -21,4 +21,4 @@ class GetDocumentById:
         self.repository = repository
 
     def execute(self, id):
-        return self.repository.get(id)
+        return self.repository.get_by(id)
