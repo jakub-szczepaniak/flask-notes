@@ -13,6 +13,7 @@ def browser(request):
     _browser.quit()
 
 
+@pytest.mark.functional
 def test_main_page_loads_and_shows_untitled(browser):
     browser.get("http://localhost:5000")
 
