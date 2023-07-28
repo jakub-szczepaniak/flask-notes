@@ -1,3 +1,4 @@
+import time
 import pytest
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
@@ -29,7 +30,13 @@ def test_main_page_loads_and_shows_untitled(browser):
     inputbox.send_keys("Buy peacock feathers")
     # When she hits enter, the page updates, and now the page is redirected to
     # http://localhost:5000/document/1
-    # and the title is "Buy peacock feathers"
+    # and the title is "Buy peacock feathers - Notes"
+
+    inputbox.send_keys(Keys.ENTER)
+    time.sleep(1)
+    assert "Buy peacock feathers - Notes" in browser.title
+    assert "/document/1" in browser.current_url
+    # and there is a H1 with the text "Buy peacock feathers"
 
 
 # There is still a text box inviting her to add another item. She

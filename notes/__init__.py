@@ -17,6 +17,7 @@ def create_app(test_config=None):
     from . import documents
 
     app.register_blueprint(documents.bp)
+    app.add_url_rule("/", endpoint="documents.index")
     from . import db
 
     db.init_app(app)
